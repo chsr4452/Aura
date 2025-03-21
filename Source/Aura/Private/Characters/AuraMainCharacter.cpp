@@ -9,6 +9,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameplayAbilitySystem/AuraAttributeSet.h"
+#include "UI/AuraHUD.h"
 
 AAuraMainCharacter::AAuraMainCharacter()
 {
@@ -73,6 +74,14 @@ void AAuraMainCharacter::PossessedBy(AController* NewController)
         	AttributeSet = AuraPlayerState->GetAttributeSet();
         
         	AbilitySystemComponent->InitAbilityActorInfo(AuraPlayerState, this);
+	}
+	APlayerController* MainPlayerController = GetPlayerState()->GetPlayerController();
+	if (MainPlayerController)
+	{
+		if (AAuraHUD* AuraHUD = Cast<AAuraHUD>(MainPlayerController->GetHUD()))
+		{
+			AuraHUD->InitAuraHUD(MainPlayerController, AttributeSet, AbilitySystemComponent, GetPlayerState());
+		}
 	}
 }
 
