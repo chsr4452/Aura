@@ -31,6 +31,8 @@ void AAuraHUD::InitAuraHUD(	APlayerController* InPlayerController,
 		OverlayWidgetController = GetOverlayWidgetController(WidgetControllerParam);
 		AuraOverlayWidget = Cast<UAuraUserWidgetbase>(OverlayWidget);
 		AuraOverlayWidget->SetWidgetController(OverlayWidgetController);
+		OverlayWidgetController->BroadCastInitAttribute();
+		OverlayWidgetController->BindCallbacksToDependencies();
 	//
     	OverlayWidget->AddToViewport();
 }

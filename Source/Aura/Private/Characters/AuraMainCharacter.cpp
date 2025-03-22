@@ -48,9 +48,9 @@ void AAuraMainCharacter::BeginPlay()
 
 	if (AttributeSet)
 	{
-			Cast<UAuraAttributeSet>(AttributeSet)->SetHealth(100.f);
+			Cast<UAuraAttributeSet>(AttributeSet)->SetHealth(50.f);
         	Cast<UAuraAttributeSet>(AttributeSet)->SetMaxHealth(100.f);
-        	Cast<UAuraAttributeSet>(AttributeSet)->SetMana(50.f);
+        	Cast<UAuraAttributeSet>(AttributeSet)->SetMana(25.f);
         	Cast<UAuraAttributeSet>(AttributeSet)->SetMaxMana(50.f);
 	}
 

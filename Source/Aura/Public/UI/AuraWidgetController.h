@@ -14,7 +14,7 @@ class UAuraAttributeSet;
 /**
  * 
  */
-USTRUCT(BlueprintType)
+USTRUCT(BlueprintType, Blueprintable)
 struct FAuraWidgetControllerParam
 {
 	GENERATED_BODY();
@@ -41,7 +41,7 @@ public:
 	UPROPERTY()
 	APlayerState* PlayerStateParam = nullptr;
 };
-UCLASS()
+UCLASS(BlueprintType, Blueprintable)
 class AURA_API UAuraWidgetController : public UObject
 {
 	GENERATED_BODY()
@@ -49,6 +49,10 @@ class AURA_API UAuraWidgetController : public UObject
 public:
 	
 	UAuraWidgetController();
+
+	UFUNCTION(BlueprintCallable)
+	virtual void BindCallbacksToDependencies();
+	
 	
 	UPROPERTY(BlueprintReadOnly, Category = "Widget Parameter")
 	TObjectPtr<AAuraPlayerController> AuraPC;

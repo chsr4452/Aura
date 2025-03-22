@@ -17,6 +17,10 @@ UAuraWidgetController::UAuraWidgetController()
 {
 }
 
+void UAuraWidgetController::BindCallbacksToDependencies()
+{
+}
+
 void UAuraWidgetController::SetAuraWidgetController(FAuraWidgetControllerParam& WCParams)
 {
 	AuraPC = Cast<AAuraPlayerController>(WCParams.PlayerControllerParam);

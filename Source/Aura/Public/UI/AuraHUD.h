@@ -11,9 +11,12 @@ class UAbilitySystemComponent;
 class UAttributeSet;
 class UAuraOverlayWidgetController;
 struct FAuraWidgetControllerParam;
+
 /**
+ *
  * 
  */
+
 UCLASS()
 class AURA_API AAuraHUD : public AHUD
 {
@@ -34,8 +37,10 @@ public:
 
 	UPROPERTY()
     TObjectPtr<UUserWidget> OverlayWidget;
+	
 	UPROPERTY()
     TObjectPtr<UAuraUserWidgetbase> AuraOverlayWidget;
+	
 	UFUNCTION()
     UAuraOverlayWidgetController* GetOverlayWidgetController(FAuraWidgetControllerParam& WidgetParams);
 
