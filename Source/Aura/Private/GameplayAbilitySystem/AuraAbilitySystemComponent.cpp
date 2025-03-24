@@ -2,13 +2,22 @@
 
 
 #include "GameplayAbilitySystem/AuraAbilitySystemComponent.h"
+#include "GameplayTagContainer.h"
 
 UAuraAbilitySystemComponent::UAuraAbilitySystemComponent()
+{
+	
+}
+
+void UAuraAbilitySystemComponent::BindDelegates()
 {
 	OnGameplayEffectAppliedDelegateToSelf.AddUObject(this, &UAuraAbilitySystemComponent::EffectApplied);
 }
 
 void UAuraAbilitySystemComponent::EffectApplied(UAbilitySystemComponent* InAbilitySystemComponent, const FGameplayEffectSpec& InGameplayEffectSpec, FActiveGameplayEffectHandle InActiveGameplayEffectHandle) const
 {
-	GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Blue, "EffectApplied");
+	FGameplayTagContainer AssetTagContainer = InGameplayEffectSpec.Def->GetAssetTags();
+
+
+	OnEffectAppliedDelegate.Broadcast(AssetTagContainer);
 }

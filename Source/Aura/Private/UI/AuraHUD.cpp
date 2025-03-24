@@ -12,7 +12,7 @@ UAuraOverlayWidgetController* AAuraHUD::GetOverlayWidgetController(FAuraWidgetCo
 {
 	if (OverlayWidgetController == nullptr)
 	{
-		UAuraOverlayWidgetController* OverlayWidgetControllerNew = NewObject<UAuraOverlayWidgetController>();
+		UAuraOverlayWidgetController* OverlayWidgetControllerNew = NewObject<UAuraOverlayWidgetController>(GetWorld(), OverlayWidgetControllerClass);
 		OverlayWidgetControllerNew->SetAuraWidgetController(WidgetParams);
 		return OverlayWidgetControllerNew;
 	}

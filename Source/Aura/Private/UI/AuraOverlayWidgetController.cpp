@@ -11,6 +11,13 @@ void UAuraOverlayWidgetController::BroadCastInitAttribute()
 	OnMaxHealthChange.Broadcast(AuraAS->GetMaxHealth());
 }
 
+FUTagWidgetRow* UAuraOverlayWidgetController::GetRowFromWidgetTable(UDataTable* InTagToWidgetTable,
+	FGameplayTag InGameplayTag) const
+{
+	FUTagWidgetRow* RowFound = InTagToWidgetTable->FindRow<FUTagWidgetRow>(InGameplayTag.GetTagName(),TEXT(""));
+	return RowFound;
+}
+
 void UAuraOverlayWidgetController::BindCallbacksToDependencies()
 {
 	AuraASC->GetGameplayAttributeValueChangeDelegate(AuraAS->GetHealthAttribute()).AddLambda([this](const FOnAttributeChangeData& Data)
@@ -29,6 +36,23 @@ void UAuraOverlayWidgetController::BindCallbacksToDependencies()
 	{
 		OnMaxManaChange.Broadcast(Data.NewValue);
 	});
+
+	AuraASC->OnEffectAppliedDelegate.AddLambda([this](const FGameplayTagContainer& Data)
+	{
+		
+		ensure(TagToWidgetTable);
+		for (FGameplayTag i : Data.GetGameplayTagArray())
+		{
+			FGameplayTag MessageTag = FGameplayTag::RequestGameplayTag("Message");
+			if (i.MatchesTag(MessageTag))
+			{
+				const FUTagWidgetRow* RowFound = GetRowFromWidgetTable(TagToWidgetTable, i);
+	            OnGetRowFromTable.Broadcast(*RowFound);
+			}
+		}
+	});
 }
+
+
 
 

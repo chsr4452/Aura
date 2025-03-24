@@ -30,6 +30,9 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Overlay Widget")
 	TObjectPtr<UAuraOverlayWidgetController> OverlayWidgetController;
 	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Overlay Widget")
+	TSubclassOf<UAuraOverlayWidgetController> OverlayWidgetControllerClass;
+	
 	void InitAuraHUD(	APlayerController* InPlayerController,
 		UAttributeSet* InAttributeSet,
 		UAbilitySystemComponent* InAbilitySystemComponent,

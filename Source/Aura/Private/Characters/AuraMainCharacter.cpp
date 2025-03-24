@@ -8,6 +8,7 @@
 #include "Game/AuraPlayerState.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "GameplayAbilitySystem/AuraAbilitySystemComponent.h"
 #include "GameplayAbilitySystem/AuraAttributeSet.h"
 #include "UI/AuraHUD.h"
 
@@ -74,6 +75,8 @@ void AAuraMainCharacter::PossessedBy(AController* NewController)
         	AttributeSet = AuraPlayerState->GetAttributeSet();
         
         	AbilitySystemComponent->InitAbilityActorInfo(AuraPlayerState, this);
+		
+			Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent)->BindDelegates();
 	}
 	APlayerController* MainPlayerController = GetPlayerState()->GetPlayerController();
 	if (MainPlayerController)

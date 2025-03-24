@@ -9,6 +9,7 @@
 /**
  * 
  */
+DECLARE_MULTICAST_DELEGATE_OneParam(FOnEffectAppliedDelegate, const FGameplayTagContainer&)
 UCLASS()
 class AURA_API UAuraAbilitySystemComponent : public UAbilitySystemComponent
 {
@@ -17,6 +18,9 @@ class AURA_API UAuraAbilitySystemComponent : public UAbilitySystemComponent
 public:
 	UAuraAbilitySystemComponent();
 
+	FOnEffectAppliedDelegate OnEffectAppliedDelegate;
+
+	void BindDelegates();
 protected:
 	void EffectApplied(UAbilitySystemComponent* InAbilitySystemComponent, const FGameplayEffectSpec& InGameplayEffectSpec, FActiveGameplayEffectHandle InActiveGameplayEffectHandle) const;
 };
