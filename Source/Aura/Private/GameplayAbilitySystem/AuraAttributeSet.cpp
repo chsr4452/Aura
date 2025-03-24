@@ -2,7 +2,7 @@
 
 
 #include "GameplayAbilitySystem/AuraAttributeSet.h"
-
+#include "GameplayEffectExtension.h"
 #include "Net/UnrealNetwork.h"
 
 UAuraAttributeSet::UAuraAttributeSet()
@@ -37,4 +37,9 @@ void UAuraAttributeSet::GetLifetimeReplicatedProps(TArray<class FLifetimePropert
 	DOREPLIFETIME(UAuraAttributeSet, Mana);
 	DOREPLIFETIME(UAuraAttributeSet, MaxHealth);
 	DOREPLIFETIME(UAuraAttributeSet, MaxMana);
+}
+
+void UAuraAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data)
+{
+	Super::PostGameplayEffectExecute(Data);
 }

@@ -4,11 +4,20 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "GameplayEffectTypes.h"
 #include "AuraEffectActor.generated.h"
 
+class UAbilitySystemComponent;
+class UGameplayEffect;
 class AAuraCharacterBase;
 class USphereComponent;
 
+UENUM(BlueprintType)
+enum class EOnOverlapPolicy : uint8
+{
+	ApplyEffectOnBeginOverlap,
+	DoNotApplyEffectOnBeginOverlap
+};
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnItemOverlapBegin, float, AttrChange);
 UCLASS()
 class AURA_API AAuraEffectActor : public AActor
@@ -18,23 +27,35 @@ class AURA_API AAuraEffectActor : public AActor
 public:	
 	// Sets default values for this actor's properties
 	AAuraEffectActor();
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	TObjectPtr<AAuraCharacterBase> OverlappedCharacter;
-	
-
-protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Mesh")
-	TObjectPtr<UStaticMeshComponent> MeshComp;
+protected:
+	UFUNCTION(BlueprintCallable, Category = "Gameplay Effect")
+    void ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> EffectClass);
+    
+    UFUNCTION(BlueprintCallable, Category = "Gameplay Effect")
+    void ApplyEffectOnBeginOverlap(AActor* TargetActor);
+    
+    UFUNCTION(BlueprintCallable, Category = "Gameplay Effect")
+    void ApplyEffectOnEndOverlap(AActor* TargetActor);
+    
+    UPROPERTY(EditDefaultsOnly, Category = "Gameplay Effect")
+    TSubclassOf<UGameplayEffect> InstantEffectClass;
+    UPROPERTY(EditDefaultsOnly, Category = "Gameplay Effect")
+    EOnOverlapPolicy InstantEffectOverlapPolicy = EOnOverlapPolicy::DoNotApplyEffectOnBeginOverlap;
+    
+    UPROPERTY(EditDefaultsOnly, Category = "Gameplay Effect")
+    TSubclassOf<UGameplayEffect> DurationEffectClass;
+    UPROPERTY(EditDefaultsOnly, Category = "Gameplay Effect")
+    EOnOverlapPolicy DurationEffectOverlapPolicy = EOnOverlapPolicy::DoNotApplyEffectOnBeginOverlap;
+    
+    UPROPERTY(EditDefaultsOnly, Category = "Gameplay Effect")
+    TSubclassOf<UGameplayEffect> InfiniteEffectClass;
+    UPROPERTY(EditDefaultsOnly, Category = "Gameplay Effect")
+    EOnOverlapPolicy InfiniteEffectOverlapPolicy = EOnOverlapPolicy::DoNotApplyEffectOnBeginOverlap;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Collision")
-	TObjectPtr<USphereComponent> SphereComp;
+	TMap<FActiveGameplayEffectHandle, UAbilitySystemComponent*> ActiveGameplayEffectMap;
 
-	FOnItemOverlapBegin OnItemOverlapBegin;
+	bool bInfinite = false;
 
-	UFUNCTION()
-	void OnBeginOverlapFunc(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult);
 };

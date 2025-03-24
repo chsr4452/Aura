@@ -2,7 +2,6 @@
 
 
 #include "UI/AuraOverlayWidgetController.h"
-
 #include "GameplayAbilitySystem/AuraAbilitySystemComponent.h"
 #include "GameplayAbilitySystem/AuraAttributeSet.h"
 
@@ -14,16 +13,22 @@ void UAuraOverlayWidgetController::BroadCastInitAttribute()
 
 void UAuraOverlayWidgetController::BindCallbacksToDependencies()
 {
-	AuraASC->GetGameplayAttributeValueChangeDelegate(AuraAS->GetHealthAttribute()).AddUObject(this, &UAuraOverlayWidgetController::OnHealthChangeCallback);
-	AuraASC->GetGameplayAttributeValueChangeDelegate(AuraAS->GetMaxHealthAttribute()).AddUObject(this, &UAuraOverlayWidgetController::OnMaxHealthChangeCallback);
+	AuraASC->GetGameplayAttributeValueChangeDelegate(AuraAS->GetHealthAttribute()).AddLambda([this](const FOnAttributeChangeData& Data)
+	{
+		OnHealthChange.Broadcast(Data.NewValue);
+	});
+	AuraASC->GetGameplayAttributeValueChangeDelegate(AuraAS->GetMaxHealthAttribute()).AddLambda([this](const FOnAttributeChangeData& Data)
+	{
+		OnMaxHealthChange.Broadcast(Data.NewValue);
+	});
+	AuraASC->GetGameplayAttributeValueChangeDelegate(AuraAS->GetManaAttribute()).AddLambda([this](const FOnAttributeChangeData& Data)
+	{
+		OnManaChange.Broadcast(Data.NewValue);
+	});
+	AuraASC->GetGameplayAttributeValueChangeDelegate(AuraAS->GetMaxManaAttribute()).AddLambda([this](const FOnAttributeChangeData& Data)
+	{
+		OnMaxManaChange.Broadcast(Data.NewValue);
+	});
 }
 
-void UAuraOverlayWidgetController::OnHealthChangeCallback(const FOnAttributeChangeData& Data)
-{
-	OnHealthChange.Broadcast(Data.NewValue);
-}
 
-void UAuraOverlayWidgetController::OnMaxHealthChangeCallback(const FOnAttributeChangeData& Data)
-{
-	OnMaxHealthChange.Broadcast(Data.NewValue);
-}

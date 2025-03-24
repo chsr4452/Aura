@@ -31,7 +31,7 @@ AAuraMainCharacter::AAuraMainCharacter()
 	SpringArmComponent->bInheritRoll = false;
 	SpringArmComponent->bInheritYaw = false;
 	
-	GetCharacterMovement()->MaxWalkSpeed = 600;
+	GetCharacterMovement()->MaxWalkSpeed = 400;
 	
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;

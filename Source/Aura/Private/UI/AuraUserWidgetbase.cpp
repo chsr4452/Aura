@@ -7,5 +7,5 @@ void UAuraUserWidgetbase::SetWidgetController(UAuraWidgetController* InWidgetCon
 {
 	WidgetController = InWidgetController;
 	EventWidgetControllerSet();
-	GEngine->AddOnScreenDebugMessage(1, 2, FColor::Red, "SetWidgetController");
+	// GEngine->AddOnScreenDebugMessage(1, 2, FColor::Red, "SetWidgetController");
 }
