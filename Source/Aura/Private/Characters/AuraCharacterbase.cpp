@@ -20,5 +20,13 @@ AAuraCharacterBase::AAuraCharacterBase()
 void AAuraCharacterBase::BeginPlay()
 {
 	Super::BeginPlay();
-	
+}
+
+void AAuraCharacterBase::InitPrimaryAttribute()
+{
+	checkf(PrimaryAttribute, TEXT("Primary Attributes Class not found."))
+			FGameplayEffectContextHandle GameplayEffectContextHandle = GetAbilitySystemComponent()->MakeEffectContext();
+        	GameplayEffectContextHandle.AddSourceObject(this);
+        	FGameplayEffectSpecHandle GameplayEffectSpecHandle = GetAbilitySystemComponent()->MakeOutgoingSpec(PrimaryAttribute, 1,GameplayEffectContextHandle);
+        	GetAbilitySystemComponent()->ApplyGameplayEffectSpecToSelf(*GameplayEffectSpecHandle.Data.Get());
 }

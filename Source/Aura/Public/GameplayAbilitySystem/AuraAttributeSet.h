@@ -66,6 +66,31 @@ public:
 	UFUNCTION()
 	virtual void OnRep_MaxMana(FGameplayAttributeData& OldAttr);
 
+	// Primary Attributes//
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, ReplicatedUsing = OnRep_Strength, Category = "Primary Attribute")
+	FGameplayAttributeData Strength;
+	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Strength);
+	UFUNCTION()
+	virtual void OnRep_Strength(FGameplayAttributeData& OldAttr);
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, ReplicatedUsing = OnRep_Intelligence, Category = "Vital Attribute")
+	FGameplayAttributeData Intelligence;
+	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Intelligence);
+	UFUNCTION()
+	virtual void OnRep_Intelligence(FGameplayAttributeData& OldAttr);
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, ReplicatedUsing = OnRep_Vigor, Category = "Vital Attribute")
+	FGameplayAttributeData Vigor;
+	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Vigor);
+	UFUNCTION()
+	virtual void OnRep_Vigor(FGameplayAttributeData& OldAttr);
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, ReplicatedUsing = OnRep_Resilience, Category = "Vital Attribute")
+	FGameplayAttributeData Resilience;
+	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Resilience);
+	UFUNCTION()
+	virtual void OnRep_Resilience(FGameplayAttributeData& OldAttr);
+	
 	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
 
 	FEffectProperties SourceProperties;

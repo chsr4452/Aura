@@ -85,6 +85,7 @@ void AAuraMainCharacter::PossessedBy(AController* NewController)
 		{
 			AuraHUD->InitAuraHUD(MainPlayerController, AttributeSet, AbilitySystemComponent, GetPlayerState());
 		}
+		InitPrimaryAttribute();
 	}
 }
 
@@ -98,5 +99,21 @@ void AAuraMainCharacter::OnRep_PlayerState()
 		AttributeSet = AuraPlayerState->GetAttributeSet();
         
 		AbilitySystemComponent->InitAbilityActorInfo(AuraPlayerState, this);
+		
+		Cast<UAuraAbilitySystemComponent>(AbilitySystemComponent)->BindDelegates();
 	}
+	APlayerController* MainPlayerController = GetPlayerState()->GetPlayerController();
+	if (MainPlayerController)
+	{
+		if (AAuraHUD* AuraHUD = Cast<AAuraHUD>(MainPlayerController->GetHUD()))
+		{
+			AuraHUD->InitAuraHUD(MainPlayerController, AttributeSet, AbilitySystemComponent, GetPlayerState());
+		}
+		InitPrimaryAttribute();
+	}
+}
+
+void AAuraMainCharacter::InitPrimaryAttribute()
+{
+	Super::InitPrimaryAttribute();
 }

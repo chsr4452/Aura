@@ -30,6 +30,26 @@ void UAuraAttributeSet::OnRep_MaxMana(FGameplayAttributeData& OldAttr)
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UAuraAttributeSet, MaxMana, OldAttr)
 }
 
+void UAuraAttributeSet::OnRep_Strength(FGameplayAttributeData& OldAttr)
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAuraAttributeSet, Strength, OldAttr)
+}
+
+void UAuraAttributeSet::OnRep_Intelligence(FGameplayAttributeData& OldAttr)
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAuraAttributeSet, Intelligence, OldAttr)
+}
+
+void UAuraAttributeSet::OnRep_Vigor(FGameplayAttributeData& OldAttr)
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAuraAttributeSet, Vigor, OldAttr)
+}
+
+void UAuraAttributeSet::OnRep_Resilience(FGameplayAttributeData& OldAttr)
+{
+	GAMEPLAYATTRIBUTE_REPNOTIFY(UAuraAttributeSet, Resilience, OldAttr)
+}
+
 void UAuraAttributeSet::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
@@ -37,9 +57,23 @@ void UAuraAttributeSet::GetLifetimeReplicatedProps(TArray<class FLifetimePropert
 	DOREPLIFETIME(UAuraAttributeSet, Mana);
 	DOREPLIFETIME(UAuraAttributeSet, MaxHealth);
 	DOREPLIFETIME(UAuraAttributeSet, MaxMana);
+	DOREPLIFETIME(UAuraAttributeSet, Strength);
+	DOREPLIFETIME(UAuraAttributeSet, Intelligence);
+	DOREPLIFETIME(UAuraAttributeSet, Vigor);
+	DOREPLIFETIME(UAuraAttributeSet, Resilience);
 }
 
 void UAuraAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData& Data)
 {
 	Super::PostGameplayEffectExecute(Data);
+
+	if (Data.EvaluatedData.Attribute == GetHealthAttribute())
+	{
+		SetHealth(FMath::Clamp(GetHealth(), 0.f, GetMaxHealth()));
+	}
+
+	if (Data.EvaluatedData.Attribute == GetManaAttribute())
+	{
+		SetMana(FMath::Clamp(GetMana(), 0.f, GetMaxMana()));
+	}
 }

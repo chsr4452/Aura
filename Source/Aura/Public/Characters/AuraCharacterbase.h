@@ -7,6 +7,8 @@
 #include "AbilitySystemInterface.h"
 #include "AuraCharacterBase.generated.h"
 
+class UGameplayAbility;
+class UGameplayEffect;
 class UAbilitySystemComponent;
 class UAttributeSet;
 
@@ -29,7 +31,12 @@ public:
 	virtual UAttributeSet* GetAttributeSet() const{return AttributeSet;}
 
 protected:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Gameplay Ability System")
+	TSubclassOf<UGameplayEffect> PrimaryAttribute;
 
+	UFUNCTION(Category = "Gameplay Ability System")
+	virtual void InitPrimaryAttribute();
+	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category="Weapon")
 	TObjectPtr<USkeletalMeshComponent> WeaponMesh;
 
@@ -37,6 +44,8 @@ protected:
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Gameplay Ability System")
 	TObjectPtr<UAttributeSet> AttributeSet;
-
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Gameplay Abilities")
+	TArray<UGameplayAbility*> StartGameplayAbilities;
 	
 };

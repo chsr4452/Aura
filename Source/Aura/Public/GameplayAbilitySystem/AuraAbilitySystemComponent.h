@@ -21,6 +21,7 @@ public:
 	FOnEffectAppliedDelegate OnEffectAppliedDelegate;
 
 	void BindDelegates();
+	
 protected:
 	void EffectApplied(UAbilitySystemComponent* InAbilitySystemComponent, const FGameplayEffectSpec& InGameplayEffectSpec, FActiveGameplayEffectHandle InActiveGameplayEffectHandle) const;
 };
