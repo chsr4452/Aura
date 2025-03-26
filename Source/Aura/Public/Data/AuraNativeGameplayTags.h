@@ -33,8 +33,18 @@ public:
 	FGameplayTag Attribute_Primary_Resilience;
 
 	// Message Tags
+	
 	FGameplayTag Message_HealthPotion;
 	FGameplayTag Message_ManaPotion;
 	FGameplayTag Message_HealthCrystal;
 	FGameplayTag Message_ManaCrystal;
+
+	// Input Tags
+
+	FGameplayTag Input_LMB;
+	FGameplayTag Input_RMB;
+	FGameplayTag Input_1;
+	FGameplayTag Input_2;
+	FGameplayTag Input_3;
+	FGameplayTag Input_4;
 };
