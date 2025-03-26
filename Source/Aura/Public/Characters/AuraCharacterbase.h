@@ -46,6 +46,7 @@ protected:
 	TObjectPtr<UAttributeSet> AttributeSet;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Gameplay Abilities")
-	TArray<UGameplayAbility*> StartGameplayAbilities;
-	
+	TArray<TSubclassOf<UGameplayAbility>> StartGameplayAbilities;
+
+	void AddStartGameplayAbilities(TArray<TSubclassOf<UGameplayAbility>> InStartGameplayAbilities) const;
 };

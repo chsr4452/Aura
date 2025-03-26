@@ -14,10 +14,14 @@ void UAuraAbilitySystemComponent::BindDelegates()
 	OnGameplayEffectAppliedDelegateToSelf.AddUObject(this, &UAuraAbilitySystemComponent::EffectApplied);
 }
 
+void UAuraAbilitySystemComponent::AddAbility(const TSubclassOf<UGameplayAbility> Ability)
+{
+	FGameplayAbilitySpec GameplayAbilitySpec = BuildAbilitySpecFromClass(Ability);
+	GiveAbilityAndActivateOnce(GameplayAbilitySpec);
+}
+
 void UAuraAbilitySystemComponent::EffectApplied(UAbilitySystemComponent* InAbilitySystemComponent, const FGameplayEffectSpec& InGameplayEffectSpec, FActiveGameplayEffectHandle InActiveGameplayEffectHandle) const
 {
 	FGameplayTagContainer AssetTagContainer = InGameplayEffectSpec.Def->GetAssetTags();
-
-
 	OnEffectAppliedDelegate.Broadcast(AssetTagContainer);
 }

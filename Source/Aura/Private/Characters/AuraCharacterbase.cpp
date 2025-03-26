@@ -3,7 +3,8 @@
 
 #include "Characters/AuraCharacterbase.h"
 
-#include "AttributeSet.h"
+#include "ShaderPrintParameters.h"
+#include "GameplayAbilitySystem/AuraAbilitySystemComponent.h"
 #include "GameplayAbilitySystem/AuraAttributeSet.h"
 
 // Sets default values
@@ -25,8 +26,18 @@ void AAuraCharacterBase::BeginPlay()
 void AAuraCharacterBase::InitPrimaryAttribute()
 {
 	checkf(PrimaryAttribute, TEXT("Primary Attributes Class not found."))
-			FGameplayEffectContextHandle GameplayEffectContextHandle = GetAbilitySystemComponent()->MakeEffectContext();
-        	GameplayEffectContextHandle.AddSourceObject(this);
-        	FGameplayEffectSpecHandle GameplayEffectSpecHandle = GetAbilitySystemComponent()->MakeOutgoingSpec(PrimaryAttribute, 1,GameplayEffectContextHandle);
-        	GetAbilitySystemComponent()->ApplyGameplayEffectSpecToSelf(*GameplayEffectSpecHandle.Data.Get());
+	FGameplayEffectContextHandle GameplayEffectContextHandle = GetAbilitySystemComponent()->MakeEffectContext();
+    GameplayEffectContextHandle.AddSourceObject(this);
+    FGameplayEffectSpecHandle GameplayEffectSpecHandle = GetAbilitySystemComponent()->MakeOutgoingSpec(PrimaryAttribute, 1,GameplayEffectContextHandle);
+    GetAbilitySystemComponent()->ApplyGameplayEffectSpecToSelf(*GameplayEffectSpecHandle.Data.Get());
+}
+
+void AAuraCharacterBase::AddStartGameplayAbilities(TArray<TSubclassOf<UGameplayAbility>> InStartGameplayAbilities) const
+{
+	if (InStartGameplayAbilities.Num() == 0){return;}
+	
+	for (TSubclassOf const i : StartGameplayAbilities)
+	{
+		Cast<UAuraAbilitySystemComponent>(GetAbilitySystemComponent())->AddAbility(i);
+	}
 }

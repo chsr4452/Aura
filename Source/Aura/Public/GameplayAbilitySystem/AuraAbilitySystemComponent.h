@@ -21,7 +21,8 @@ public:
 	FOnEffectAppliedDelegate OnEffectAppliedDelegate;
 
 	void BindDelegates();
-	
+	void AddAbility(const TSubclassOf<UGameplayAbility> Ability);
 protected:
 	void EffectApplied(UAbilitySystemComponent* InAbilitySystemComponent, const FGameplayEffectSpec& InGameplayEffectSpec, FActiveGameplayEffectHandle InActiveGameplayEffectHandle) const;
+	
 };

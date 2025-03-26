@@ -87,6 +87,7 @@ void AAuraMainCharacter::PossessedBy(AController* NewController)
 		}
 		InitPrimaryAttribute();
 	}
+	AddStartGameplayAbilities(StartGameplayAbilities);
 }
 
 void AAuraMainCharacter::OnRep_PlayerState()
