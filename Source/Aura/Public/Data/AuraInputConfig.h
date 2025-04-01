@@ -31,6 +31,6 @@ class AURA_API UAuraInputConfig : public UDataAsset
 	public:
 	UPROPERTY(EditDefaultsOnly,Category="InputConfig")
 	TArray<FAuraInputTag> InputConfigs;
-
+		
 	const UInputAction* GetInputAction(FGameplayTag InGameplayTag) const;
 };

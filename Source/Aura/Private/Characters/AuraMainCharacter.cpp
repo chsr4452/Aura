@@ -112,9 +112,20 @@ void AAuraMainCharacter::OnRep_PlayerState()
 		}
 		InitPrimaryAttribute();
 	}
+	// AddStartGameplayAbilities(StartGameplayAbilities);
 }
 
 void AAuraMainCharacter::InitPrimaryAttribute()
 {
 	Super::InitPrimaryAttribute();
+}
+
+void AAuraMainCharacter::AddStartGameplayAbilities(TArray<TSubclassOf<UGameplayAbility>> InStartGameplayAbilities)
+{
+	if (InStartGameplayAbilities.Num() == 0){return;}
+	
+	for (TSubclassOf const i : InStartGameplayAbilities)
+	{
+		Cast<UAuraAbilitySystemComponent>(GetAbilitySystemComponent())->AddAbility(i);
+	}
 }

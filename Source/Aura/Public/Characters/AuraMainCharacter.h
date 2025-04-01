@@ -22,6 +22,11 @@ public:
 	AAuraMainCharacter();
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Gameplay Abilities")
+	TArray<TSubclassOf<UGameplayAbility>> StartGameplayAbilities;
+
+	void AddStartGameplayAbilities(TArray<TSubclassOf<UGameplayAbility>> InStartGameplayAbilities);
 protected:
 	UPROPERTY(VisibleDefaultsOnly, Category = "Camera")
 	USpringArmComponent* SpringArmComponent;

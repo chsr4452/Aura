@@ -3,6 +3,7 @@
 
 #include "GameplayAbilitySystem/AuraAbilitySystemComponent.h"
 #include "GameplayTagContainer.h"
+#include "GameplayAbility/AuraGameplayAbility.h"
 
 UAuraAbilitySystemComponent::UAuraAbilitySystemComponent()
 {
@@ -16,8 +17,31 @@ void UAuraAbilitySystemComponent::BindDelegates()
 
 void UAuraAbilitySystemComponent::AddAbility(const TSubclassOf<UGameplayAbility> Ability)
 {
-	FGameplayAbilitySpec GameplayAbilitySpec = BuildAbilitySpecFromClass(Ability);
-	GiveAbilityAndActivateOnce(GameplayAbilitySpec);
+	FGameplayAbilitySpec GameplayAbilitySpec = FGameplayAbilitySpec(Ability);
+	GameplayAbilitySpec.DynamicAbilityTags.AddTag(Cast<UAuraGameplayAbility>(GameplayAbilitySpec.Ability)->InputTag);
+	
+	GiveAbility(GameplayAbilitySpec);
+	auto StartActivatableAbilities = GetActivatableAbilities();
+	bStartupAbilitiesGiven = true;
+}
+
+void UAuraAbilitySystemComponent::AbilityInputTagPressed(const FGameplayTag InTag)
+{
+	
+	if (!InTag.IsValid()){return;}
+	auto StartActivatableAbilities = GetActivatableAbilities();
+	for (FGameplayAbilitySpec& GameplayAbilitySpec :StartActivatableAbilities)
+	{
+		if (GameplayAbilitySpec.DynamicAbilityTags.HasTagExact(InTag))
+		{
+			if (!GameplayAbilitySpec.IsActive())
+			{
+				TryActivateAbility(GameplayAbilitySpec.Handle);
+				GEngine->AddOnScreenDebugMessage(2, 2, FColor::Red, FString::Printf(TEXT("Press: %s"), *InTag.ToString()));
+			}
+			
+		}
+	}
 }
 
 void UAuraAbilitySystemComponent::EffectApplied(UAbilitySystemComponent* InAbilitySystemComponent, const FGameplayEffectSpec& InGameplayEffectSpec, FActiveGameplayEffectHandle InActiveGameplayEffectHandle) const

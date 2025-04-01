@@ -32,12 +32,3 @@ void AAuraCharacterBase::InitPrimaryAttribute()
     GetAbilitySystemComponent()->ApplyGameplayEffectSpecToSelf(*GameplayEffectSpecHandle.Data.Get());
 }
 
-void AAuraCharacterBase::AddStartGameplayAbilities(TArray<TSubclassOf<UGameplayAbility>> InStartGameplayAbilities) const
-{
-	if (InStartGameplayAbilities.Num() == 0){return;}
-	
-	for (TSubclassOf const i : StartGameplayAbilities)
-	{
-		Cast<UAuraAbilitySystemComponent>(GetAbilitySystemComponent())->AddAbility(i);
-	}
-}

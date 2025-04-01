@@ -18,3 +18,12 @@ void AAuraEnemyCharacterBase::BeginPlay()
 
 	GetAbilitySystemComponent()->InitAbilityActorInfo(this, this);
 }
+
+void AAuraEnemyCharacterBase::Highlight()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Red, "Highlight");
+}
+
+void AAuraEnemyCharacterBase::UnHighlight()
+{
+}

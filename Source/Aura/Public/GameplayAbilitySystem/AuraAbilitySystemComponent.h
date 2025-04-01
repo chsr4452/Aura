@@ -21,7 +21,14 @@ public:
 	FOnEffectAppliedDelegate OnEffectAppliedDelegate;
 
 	void BindDelegates();
+	
 	void AddAbility(const TSubclassOf<UGameplayAbility> Ability);
+	
+	UFUNCTION(BlueprintCallable)
+	void AbilityInputTagPressed(const FGameplayTag InTag);
+
+	bool bStartupAbilitiesGiven = false;
+	
 protected:
 	void EffectApplied(UAbilitySystemComponent* InAbilitySystemComponent, const FGameplayEffectSpec& InGameplayEffectSpec, FActiveGameplayEffectHandle InActiveGameplayEffectHandle) const;
 	
