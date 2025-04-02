@@ -32,3 +32,9 @@ void AAuraCharacterBase::InitPrimaryAttribute()
     GetAbilitySystemComponent()->ApplyGameplayEffectSpecToSelf(*GameplayEffectSpecHandle.Data.Get());
 }
 
+FVector AAuraCharacterBase::GetCombatSocketLocation()
+{
+	const FVector SocketLocation = GetMesh()->GetSocketLocation(ProjectileSpawnLocation);
+	return SocketLocation;
+}
+

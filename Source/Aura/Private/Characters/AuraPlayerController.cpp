@@ -87,7 +87,7 @@ void AAuraPlayerController::AbilityInputTagPressed(FGameplayTag InputTag)
 	if (Cast<ACharacter>(CursorHit.GetActor()))
 	{
 					if (GetASC()) GetASC()->AbilityInputTagPressed(InputTag);
-                	GEngine->AddOnScreenDebugMessage(1, 2, FColor::Green, FString::Printf(TEXT("Press: %s"), *InputTag.ToString()));
+                	// GEngine->AddOnScreenDebugMessage(1, 2, FColor::Green, FString::Printf(TEXT("Press: %s"), *InputTag.ToString()));
 	}
 }
 
@@ -97,7 +97,7 @@ void AAuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 	{
 		AuraAbilitySystemComponent = Cast<UAuraAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetOwner()));
 	}
-	GEngine->AddOnScreenDebugMessage(1, 2, FColor::Green, FString::Printf(TEXT("Release: %s"), *InputTag.ToString()));
+	// GEngine->AddOnScreenDebugMessage(1, 2, FColor::Green, FString::Printf(TEXT("Release: %s"), *InputTag.ToString()));
 	GetHitResultUnderCursor(ECC_Visibility, false, CursorHit);
 	if (!Cast<ACharacter>(CursorHit.GetActor()))
 	{
@@ -107,7 +107,7 @@ void AAuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 
 void AAuraPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 {
-	GEngine->AddOnScreenDebugMessage(1, 2, FColor::Green, FString::Printf(TEXT("Held: %s"), *InputTag.ToString()));
+	// GEngine->AddOnScreenDebugMessage(1, 2, FColor::Green, FString::Printf(TEXT("Held: %s"), *InputTag.ToString()));
 }
 
 void AAuraPlayerController::CursorTrace()

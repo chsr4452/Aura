@@ -37,7 +37,7 @@ void UAuraAbilitySystemComponent::AbilityInputTagPressed(const FGameplayTag InTa
 			if (!GameplayAbilitySpec.IsActive())
 			{
 				TryActivateAbility(GameplayAbilitySpec.Handle);
-				GEngine->AddOnScreenDebugMessage(2, 2, FColor::Red, FString::Printf(TEXT("Press: %s"), *InTag.ToString()));
+				// GEngine->AddOnScreenDebugMessage(2, 2, FColor::Red, FString::Printf(TEXT("Press: %s"), *InTag.ToString()));
 			}
 			
 		}

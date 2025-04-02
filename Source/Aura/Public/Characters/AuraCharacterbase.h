@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "AbilitySystemInterface.h"
+#include "Interface/CombatInterface.h"
 #include "AuraCharacterBase.generated.h"
 
 class UGameplayAbility;
@@ -13,7 +14,7 @@ class UAbilitySystemComponent;
 class UAttributeSet;
 
 UCLASS()
-class AURA_API AAuraCharacterBase : public ACharacter, public IAbilitySystemInterface
+class AURA_API AAuraCharacterBase : public ACharacter, public IAbilitySystemInterface, public ICombatInterface
 {
 	GENERATED_BODY()
 
@@ -45,5 +46,8 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Gameplay Ability System")
 	TObjectPtr<UAttributeSet> AttributeSet;
 	
-
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	FName ProjectileSpawnLocation;
+	
+	virtual FVector GetCombatSocketLocation() override;
 };

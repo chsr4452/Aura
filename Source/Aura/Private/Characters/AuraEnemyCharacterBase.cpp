@@ -21,9 +21,9 @@ void AAuraEnemyCharacterBase::BeginPlay()
 
 void AAuraEnemyCharacterBase::Highlight()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 2, FColor::Red, "Highlight");
 }
 
 void AAuraEnemyCharacterBase::UnHighlight()
 {
 }
+
